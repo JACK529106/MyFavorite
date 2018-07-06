@@ -13,14 +13,12 @@ class DuplicateFileFinding:
     def __init__(self):
         pass
 
-    def fetch_files(self, path):  # 遍历主目录下所有文件（包括自目录），并返回至列表
+    def fetch_files(self, path):  # 遍历主目录下所有文件（包括子目录），并返回至列表
         global file_list
         dir_list = os.listdir(path)
         dir_list_with_full_path = [os.path.join(path, x) for x in dir_list]
-        temp_list = dir_list_with_full_path[:]
-        for i in temp_list:
+        for i in dir_list_with_full_path:
             if os.path.isdir(i):
-                dir_list_with_full_path.remove(i)
                 self.fetch_files(i)
             else:
                 file_list.append(i)
